@@ -1,0 +1,752 @@
+/* ═══════════════════════════════
+   INTRO SCREEN
+═══════════════════════════════ */
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.9s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-content {
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.intro-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.7);
+    margin-bottom: 2rem;
+    animation: introFade 1.2s ease forwards;
+}
+
+.intro-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    animation: introFade 1.2s 0.2s ease both;
+}
+
+.intro-amp {
+    display: block;
+    font-style: italic;
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    color: var(--gold);
+    line-height: 1.5;
+}
+
+.intro-date {
+    font-size: clamp(0.72rem, 2.5vw, 0.88rem);
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 243, 0.4);
+    margin-top: 1.2rem;
+    animation: introFade 1.2s 0.4s ease both;
+}
+
+.intro-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    padding: 0.9rem 2.4rem;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+    animation: introFade 1.2s 0.8s ease both;
+}
+
+.intro-btn:hover,
+.intro-btn:active {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--deep);
+}
+
+.intro-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+}
+
+.intro-btn:hover svg {
+    transform: translateX(4px);
+}
+
+@keyframes introFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ═══════════════════════════════
+   RESET & BASE
+═══════════════════════════════ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --ivory: #FAF8F3;
+    --cream: #F5EEE6;
+    --blush: #E8C5B5;
+    --gold: #C9A96E;
+    --gold-lt: #DFC08E;
+    --dark: #3D2B1F;
+    --mid: #7A5C4A;
+    --deep: #1C0E05;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: var(--dark);
+    background: var(--ivory);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════
+   SCREEN LAYOUT
+═══════════════════════════════ */
+.swiper {
+    height: 100dvh;
+}
+
+.screen {
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.screen-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.screen-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.screen-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    max-width: 640px;
+    width: 100%;
+}
+
+/* ═══════════════════════════════
+   ANIMATION SYSTEM
+═══════════════════════════════ */
+[data-anim] {
+    opacity: 0;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+[data-anim="up"] {
+    transform: translateY(36px);
+}
+
+[data-anim="down"] {
+    transform: translateY(-20px);
+}
+
+[data-anim="fade"] {
+    transform: none;
+}
+
+[data-anim="scale"] {
+    transform: scale(0.9);
+}
+
+[data-delay="1"] {
+    transition-delay: 0.1s;
+}
+
+[data-delay="2"] {
+    transition-delay: 0.25s;
+}
+
+[data-delay="3"] {
+    transition-delay: 0.4s;
+}
+
+[data-delay="4"] {
+    transition-delay: 0.55s;
+}
+
+[data-delay="5"] {
+    transition-delay: 0.7s;
+}
+
+[data-delay="6"] {
+    transition-delay: 0.85s;
+}
+
+[data-delay="7"] {
+    transition-delay: 1.0s;
+}
+
+[data-anim].in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ═══════════════════════════════
+   SHARED DECORATIVE DIVIDER
+═══════════════════════════════ */
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.4rem auto;
+    width: 140px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+}
+
+.divider .gem {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+}
+
+.divider--light::before,
+.divider--light::after {
+    background: var(--gold-lt);
+}
+
+.divider--light .gem {
+    background: var(--gold-lt);
+}
+
+/* ═══════════════════════════════
+   SCREEN 1 — COVER
+═══════════════════════════════ */
+.s1 {
+    background: var(--deep);
+}
+
+.s1 .screen-bg {
+    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=70');
+    opacity: 0.35;
+}
+
+.s1 .screen-overlay {
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(28, 14, 5, 0.85) 100%);
+}
+
+.cover-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+}
+
+.cover-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 11vw, 5.5rem);
+    font-weight: 300;
+    color: var(--ivory);
+    line-height: 1;
+    letter-spacing: 0.03em;
+}
+
+.cover-amp {
+    display: block;
+    font-style: italic;
+    font-size: clamp(1.8rem, 7vw, 3.5rem);
+    color: var(--gold);
+    line-height: 1.6;
+}
+
+.cover-date {
+    font-size: clamp(0.82rem, 2.8vw, 1rem);
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 243, 0.55);
+    margin-top: 1.8rem;
+}
+
+/* scroll hint arrow */
+.scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    z-index: 3;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: cue 3s 2.5s infinite;
+    opacity: 0;
+}
+
+.scroll-cue span {
+    font-size: 0.72rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.6);
+}
+
+.scroll-cue-arrow {
+    width: 12px;
+    height: 12px;
+    border-right: 1px solid rgba(201, 169, 110, 0.6);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.6);
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+@keyframes cue {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-6px);
+    }
+
+    25%,
+    75% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(6px);
+    }
+}
+
+/* ═══════════════════════════════
+   SCREEN 2 — GREETING
+═══════════════════════════════ */
+.s2 {
+    background: var(--cream);
+}
+
+.s2 .screen-bg {
+    background-image: url('https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    opacity: 0.09;
+}
+
+.greet-pre {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    color: var(--gold);
+    font-weight: normal;
+}
+
+.greet-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.2;
+    margin: 0.25rem 0 1.5rem;
+}
+
+.greet-body {
+    font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+    color: var(--mid);
+    line-height: 1.85;
+    font-style: italic;
+}
+
+
+/* ═══════════════════════════════
+   SCREEN 3 — DATE & TIME
+═══════════════════════════════ */
+.s3 {
+    background: var(--deep);
+}
+
+.s3 .screen-overlay {
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(28, 14, 5, 0.85) 100%);
+}
+
+.s3 .dt-day {
+    color: var(--ivory);
+}
+
+.s3 .dt-month {
+    color: var(--cream);
+}
+
+.s3 .dt-time {
+    color: var(--ivory);
+}
+
+.s3 .dt-time-lbl {
+    color: var(--gold-lt);
+    opacity: 0.75;
+}
+
+.s3 .cd-num {
+    color: var(--gold);
+}
+
+.s3 .cd-label {
+    color: var(--gold-lt);
+    opacity: 0.7;
+}
+
+.s3 .cd-sep {
+    color: var(--gold-lt);
+    opacity: 0.7;
+}
+
+.dt-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dt-day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5.5rem, 24vw, 11rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--dark);
+    letter-spacing: -0.03em;
+}
+
+.dt-month {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 5.5vw, 2.2rem);
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: -0.15rem;
+}
+
+.dt-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 12vw, 5.5rem);
+    font-weight: 300;
+    color: var(--dark);
+    letter-spacing: 0.08em;
+}
+
+.dt-time-lbl {
+    font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 0.15rem;
+}
+
+.countdown {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.3rem;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    background: rgba(201, 169, 110, 0.04);
+}
+
+.cd-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 44px;
+}
+
+.cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 6.5vw, 2.5rem);
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1;
+    margin-bottom: .5rem;
+}
+
+.cd-label {
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+}
+
+.cd-sep {
+    font-size: 1.4rem;
+    color: var(--gold);
+    line-height: 1.8;
+    line-height: 2.6;
+    padding-bottom: 0;
+}
+
+/* ═══════════════════════════════
+   SCREEN 4 — VENUE
+═══════════════════════════════ */
+.s4 {
+    background: var(--cream);
+}
+
+.s4 .screen-bg {
+    background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=70');
+    opacity: 0.09;
+}
+
+.venue-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+}
+
+.venue-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 10vw, 4.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+}
+
+.venue-addr {
+    font-size: clamp(1rem, 3.5vw, 1.15rem);
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.venue-addr strong {
+    font-weight: 400;
+    color: var(--dark);
+}
+
+.venue-index {
+    font-size: 0.85em;
+    color: var(--mid);
+    letter-spacing: 0.1em;
+}
+
+.venue-landmark {
+    font-size: 0.82em;
+    color: var(--mid);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.map-btn {
+    display: inline-block;
+    padding: 0.8rem 2.2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+}
+
+.map-btn:hover,
+.map-btn:active {
+    background: var(--gold);
+    color: #fff;
+}
+
+/* ═══════════════════════════════
+   SCREEN 5 — CLOSING
+═══════════════════════════════ */
+.s5 {
+    background: var(--dark);
+}
+
+.s5 .screen-bg {
+    background-image: url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1920&q=70');
+    opacity: 0.22;
+}
+
+.s5 .screen-overlay {
+    background: linear-gradient(160deg, rgba(61, 43, 31, 0.45), rgba(28, 14, 5, 0.85));
+}
+
+.closing-ornament {
+    font-size: 0.92rem;
+    letter-spacing: 0.6em;
+    color: var(--gold-lt);
+    opacity: 0.75;
+    margin-bottom: 2rem;
+}
+
+.closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 5.5vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ivory);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.closing-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 300;
+    color: var(--gold-lt);
+    line-height: 1;
+}
+
+.closing-foot {
+    font-size: 0.82rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 243, 0.35);
+    margin-top: 1.6rem;
+}
+
+/* ═══════════════════════════════
+   MUSIC BUTTON
+═══════════════════════════════ */
+.music-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.4);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, opacity 0.3s;
+}
+
+.music-btn:hover {
+    border-color: var(--gold);
+    background: #fff;
+}
+
+.music-btn.off {
+    opacity: 0.45;
+}
+
+.music-btn svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ═══════════════════════════════
+   NAV DOTS
+═══════════════════════════════ */
+.nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.nav-dot.on {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: scale(1.5);
+}
+
+/* ═══════════════════════════════
+   MOBILE
+═══════════════════════════════ */
+@media (max-width: 480px) {
+    .nav-dots {
+        display: none;
+    }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .music-btn {
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    }
+}
