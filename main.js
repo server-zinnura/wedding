@@ -15,10 +15,12 @@
             prefix = 'Дорогие';
             guest  = raw;
         }
+        document.querySelector('.greet-pre').textContent = prefix;
+        document.getElementById('guestName').textContent = guest;
+    } else {
+        document.querySelector('.greet-pre').style.display = 'none';
+        document.getElementById('guestName').style.display = 'none';
     }
-
-    document.querySelector('.greet-pre').textContent    = prefix;
-    document.getElementById('guestName').textContent    = guest;
 })();
 
 /* ═══ АНИМАЦИИ + НАВИГАЦИЯ (Swiper) ═══ */
